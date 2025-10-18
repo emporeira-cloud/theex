@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>THE EX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Обнуление и стилизация */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background-color: #f5f5f7;
+      color: #000;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      padding: 12px;
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .balance {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .button {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      margin-bottom: 15px;
+      background-color: #007aff;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .button:hover {
+      background-color: #005ecb;
+    }
+
+    .small-button {
+      background-color: transparent;
+      border: none;
+      color: #007aff;
+      font-size: 15px;
+      margin-top: 5px;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .popup {
+      background-color: white;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      margin-top: 10px;
+    }
+
+    .popup input {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>THE EX</h1>
+
+    <!-- Ввод ID -->
+    <input type="text" placeholder="Введите ваш ID" id="userId" oninput="updateBalance()">
+    
+    <!-- Баланс -->
+    <div class="balance" id="balance">Баланс: 0.00 BTC (~0 ₽)</div>
+
+    <!-- Кнопки -->
+    <button class="button" onclick="toggleDeposit()">Пополнить баланс</button>
+    <button class="button" onclick="toggleTransfer()">Отправить BTC</button>
+
+    <!-- Пополнение -->
+    <div class="popup hidden" id="depositBox">
+      <p>Выберите способ пополнения:</p>
+      <button class="button" onclick="showCashInput()">Наличными</button>
+
+      <div class="hidden" id="cashInput">
+        <p>Введите номер терминала:</p>
+        <input type="text" placeholder="Например, 5">
+      </div>
+    </div>
+
+    <!-- Перевод -->
+    <div class="popup hidden" id="transferBox">
+      <p>Введите BTC-адрес:</p>
+      <input type="text" placeholder="1A1zP1...">
+    </div>
+
+    <!-- Тарифы -->
+    <button class="small-button" onclick="toggleRates()">Тарифы</button>
+    <div class="popup hidden" id="rates">
+      <p><strong>Комиссии:</strong></p>
+      <p>От 500 до 5000 — 350₽</p>
+      <p>От 5000 до 10000 — 550₽</p>
+    </div>
+
+    <!-- Терминалы -->
+    <button class="small-button">Где найти терминал? (в разработке)</button>
+  </div>
+
+  <script>
+    function toggleDeposit() {
+      document.getElementById('depositBox').classList.toggle('hidden');
+      document.getElementById('transferBox').classList.add('hidden');
+    }
+
+    function toggleTransfer() {
+      document.getElementById('transferBox').classList.toggle('hidden');
+      document.getElementById('depositBox').classList.add('hidden');
+    }
+
+    function toggleRates() {
+      document.getElementById('rates').classList.toggle('hidden');
+    }
+
+    function showCashInput() {
+      document.getElementById('cashInput').classList.remove('hidden');
+    }
+
+    function updateBalance() {
+      const id = document.getElementById('userId').value;
+      const balanceBox = document.getElementById('balance');
+
+      // Пример: тестовые данные
+      if (id === "123") {
+        balanceBox.innerText = "Баланс: 0.15 BTC (~820 000 ₽)";
+      } else if (id === "456") {
+        balanceBox.innerText = "Баланс: 0.02 BTC (~110 000 ₽)";
+      } else {
+        balanceBox.innerText = "Баланс: 0.00 BTC (~0 ₽)";
+      }
+    }
+  </script>
+</body>
+</html>
